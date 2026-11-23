@@ -17,4 +17,7 @@ bool updateButton(Button &button){
       return true;
     }
   }
+
+  button.lastReading = currentReading;
+  return false;
 }
