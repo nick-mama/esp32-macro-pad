@@ -1,6 +1,7 @@
 #include "USB.h"
 #include "USBHIDKeyboard.h"
 #include "USBHIDConsumerControl.h"
+#include <Preferences.h>
 
 // LED pins
 #define RED_PIN 38
@@ -9,6 +10,7 @@
 
 USBHIDKeyboard Keyboard;
 USBHIDConsumerControl ConsumerControl;
+Preferences preferences;
 
 // ---------
 // Profiles
@@ -96,6 +98,9 @@ void nextProfile(){
   }
 
   setProfileColor();
+
+  // Save profile to flash
+  preferences.putInt("profile", currentProfile);
 }
 
 // ------------------------------
@@ -309,6 +314,19 @@ void setup() {
   pinMode(GREEN_PIN, OUTPUT);
   pinMode(BLUE_PIN, OUTPUT);
 
+  // Load saved profile
+  preferences.begin("macropad", false);
+
+  int savedProfile = preferences.getInt("profile", P_GENERAL);
+
+  if(savedProfile >= P_GENERAL && savedProfile <= P_ARDUINO){
+    currentProfile = (Profile)savedProfile;
+  }
+  else{
+    currentProfile = P_GENERAL;
+  }
+
+  // Show restored profile
   setProfileColor();
 
   // Start USB keyboard
