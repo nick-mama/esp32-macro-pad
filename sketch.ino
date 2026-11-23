@@ -2,6 +2,7 @@
 #include "USBHIDKeyboard.h"
 #include "USBHIDConsumerControl.h"
 #include <Preferences.h>
+#include "buttons.h"
 
 // LED pins
 #define RED_PIN 38
@@ -24,23 +25,11 @@ enum Profile {
 
 Profile currentProfile = P_GENERAL;
 
-// -------------------
-// Button structure
-// -------------------
-
-struct Button {
-  int pin;
-  bool lastReading;
-  bool stableState;
-  unsigned long lastDebounceTime;
-};
-
 // Create our three buttons
 Button button1 = {21, HIGH, HIGH, 0};
 Button button2 = {13, HIGH, HIGH, 0};
 Button button3 = {14, HIGH, HIGH, 0};
 
-const unsigned long DEBOUNCE_DELAY = 50;
 
 // -------------------
 // Button 1 long press
@@ -52,32 +41,6 @@ bool button1WasPressed = false;
 bool button1LongPress = false;
 
 const unsigned long LONG_PRESS_TIME = 1500;
-
-// ------------------
-// Debounce function
-// ------------------
-bool updateButton(Button &button) {
-
-  bool currentReading = digitalRead(button.pin);
-
-  if (currentReading != button.lastReading) {
-    button.lastDebounceTime = millis();
-  }
-
-  if ((millis() - button.lastDebounceTime) > DEBOUNCE_DELAY) {
-
-    if (currentReading != button.stableState) {
-      button.stableState = currentReading;
-      button.lastReading = currentReading;
-
-      return true;
-    }
-  }
-
-  button.lastReading = currentReading;
-
-  return false;
-}
 
 // -------------------
 // Switch profile
