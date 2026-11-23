@@ -4,7 +4,7 @@ A programmable USB macro pad built with an ESP32-S3 that provides shortcuts for 
 
 The ESP32-S3 uses its native USB interface to act as a USB HID keyboard and consumer control device. Three physical buttons provide different actions depending on the selected profile, while an RGB LED indicates the currently active profile.
 
-![ESP32-S3 USB Productivity Macro Pad Prototype](images/macropad-prototype.png)
+![ESP32-S3 USB Productivity Macro Pad Prototype](images/macropad-prototype.PNG)
 
 ## Features
 
