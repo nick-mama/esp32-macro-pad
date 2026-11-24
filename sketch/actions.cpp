@@ -20,6 +20,52 @@ void initActions(){
   USB.begin();
 }
 
+// ------------------
+// Configurable mappings
+// ------------------
+void runAction(Action action){
+  switch(action){
+    case ACTION_PLAY_PAUSE:
+      generalButton1();
+      break;
+      
+    case ACTION_SCREENSHOT:
+      generalButton2();
+      break;
+
+    case ACTION_LOCK:
+      generalButton3();
+      break;
+
+    case ACTION_TERMINAL:
+      codingButton1();
+      break;
+
+    case ACTION_TOGGLE_COMMENT:
+      codingButton2();
+      break;
+
+    case ACTION_FIND_FILES:
+      codingButton3();
+      break;
+
+    case ACTION_VERIFY:
+      arduinoButton1();
+      break;
+
+    case ACTION_UPLOAD:
+      arduinoButton2();
+      break;
+
+    case ACTION_SERIAL_MONITOR:
+      arduinoButton3();
+      break;
+
+    case ACTION_NONE:
+      break;
+  }
+}
+
 // ------------------------------
 // General profile button actions
 // ------------------------------

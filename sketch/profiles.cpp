@@ -11,6 +11,33 @@
 
 Preferences preferences;
 
+// -------------------
+// Mapping table for buttons
+// -------------------
+
+Action profileMappings[3][3] = {
+  // General
+  {
+    ACTION_PLAY_PAUSE,
+    ACTION_SCREENSHOT,
+    ACTION_LOCK
+  },
+
+  // Coding
+  {
+    ACTION_TERMINAL,
+    ACTION_TOGGLE_COMMENT,
+    ACTION_FIND_FILES
+  },
+
+  // Arduino
+  {
+    ACTION_VERIFY,
+    ACTION_UPLOAD,
+    ACTION_SERIAL_MONITOR
+  }
+};
+
 Profile currentProfile = P_GENERAL;
 
 // -------------------
@@ -66,53 +93,16 @@ void nextProfile() {
 // --------------------
 
 void runButtonAction(int buttonNumber) {
+  // Convert buttons 1-3 into array indexes 0-2
+  int buttonIndex = buttonNumber - 1;
 
-  switch (currentProfile) {
-
-    case P_GENERAL:
-
-      if (buttonNumber == 1) {
-        generalButton1();
-      }
-      else if (buttonNumber == 2) {
-        generalButton2();
-      }
-      else if (buttonNumber == 3) {
-        generalButton3();
-      }
-
-      break;
-
-
-    case P_CODING:
-
-      if (buttonNumber == 1) {
-        codingButton1();
-      }
-      else if (buttonNumber == 2) {
-        codingButton2();
-      }
-      else if (buttonNumber == 3) {
-        codingButton3();
-      }
-
-      break;
-
-
-    case P_ARDUINO:
-
-      if (buttonNumber == 1) {
-        arduinoButton1();
-      }
-      else if (buttonNumber == 2) {
-        arduinoButton2();
-      }
-      else if (buttonNumber == 3) {
-        arduinoButton3();
-      }
-
-      break;
+  if(buttonIndex < 0 || buttonIndex > 2){
+    return;
   }
+
+  Action action = profileMappings[currentProfile][buttonIndex];
+
+  runAction(action);
 }
 
 
