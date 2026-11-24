@@ -136,3 +136,36 @@ void setProfileColor() {
       break;
   }
 }
+
+Action getProfileAction(Profile profile, int buttonIndex){
+  if(profile < P_GENERAL || profile > P_ARDUINO){
+    return ACTION_NONE;
+  }
+
+  if(buttonIndex < 0 || buttonIndex > 2){
+    return ACTION_NONE;
+  }
+
+  return profileMappings[profile][buttonIndex];
+}
+
+bool setProfileAction(Profile profile, int buttonIndex, Action action) {
+  // Make sure profile is valid
+  if (profile < P_GENERAL || profile > P_ARDUINO) {
+    return false;
+  }
+
+  // Make sure button index is valid
+  if (buttonIndex < 0 || buttonIndex > 2) {
+    return false;
+  }
+
+  // Make sure action is valid
+  if (action < ACTION_PLAY_PAUSE || action > ACTION_NONE) {
+    return false;
+  }
+
+  profileMappings[profile][buttonIndex] = action;
+
+  return true;
+}
