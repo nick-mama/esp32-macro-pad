@@ -1,6 +1,7 @@
 #include "buttons.h"
 #include "actions.h"
 #include "profiles.h"
+#include "protocol.h"
 
 // Create our three buttons
 Button button1 = {21, HIGH, HIGH, 0};
@@ -32,6 +33,8 @@ void setup() {
 
   // Start USB keyboard
   initActions();
+
+  initProtocol();
 }
 
 // -------------------
@@ -81,4 +84,6 @@ void loop() {
       runButtonAction(3);
     }
   }
+
+  updateProtocol();
 }
